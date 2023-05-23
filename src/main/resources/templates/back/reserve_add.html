@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/amazeui.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" />
+</head>
+<body>
+<div class="admin-content-body">
+    <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加预订信息</strong><small></small></div>
+    </div>
+
+    <hr>
+
+    <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-6">
+
+        </div>
+        <div class="am-u-sm-12 am-u-md-3">
+
+        </div>
+        <div class="am-u-sm-12 am-u-md-3">
+
+        </div>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <form class="am-form">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>用户ID:</td>
+                        <td>
+                            <input type="text"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                        <td>场地ID:</td>
+                        <td>
+                            <input type="text"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>预订时间段:</td>
+                        <td>
+                            <select
+                                    style="border-radius: 12px;
+										height: 30px;font-size: 10px">
+                                <option value="">---请选择---</option>
+                                <option>8:00</option>
+                                <option>9:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                            </select></td>
+                        <td>预订人数：</td>
+                        <td>
+                            <input type="text"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>预订日期：</td>
+                        <td>
+                            <input type="date"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                        <td>备注：</td>
+                        <td>
+                            <input type="text"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="am-btn am-btn-default"
+                        id="add_place"
+                        style="position: relative;left: 48%;
+								color:#0e90d2;border-color:#0e90d2;border-radius: 15px "
+                ><span class="am-icon-plus"></span>添加</button>
+                <hr>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+
+</body>
+
+</html>

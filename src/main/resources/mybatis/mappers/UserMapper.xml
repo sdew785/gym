@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ustb.gym.mapper.UserMapper">
+    <!--    //添加用户信息-->
+    <!--    void addUser(User user);-->
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="uid">
+        insert into t_user
+        values (null, #{uname}, #{type},
+                #{vip}, #{vipBal}, #{createTime},
+                #{notes}, #{pwd}, #{statu})
+    </insert>
+    <sql id="all">
+        <if test="true">
+            uid, uname, type,
+            vip, vip_bal as vipBal, create_time as createTime ,
+            notes, pwd,statu
+        </if>
+    </sql>
+
+    <!--    List<User> allUser();-->
+    <select id="allUser" resultType="User">
+        select
+        <include refid="all"/>
+        from t_user where statu = 0
+    </select>
+
+    <!--    User getUserByName(@Param("name") String name);-->
+    <select id="getUserByName" resultType="User">
+        select
+        <include refid="all"/>
+        from t_user where uname = #{name}
+    </select>
+
+    <!--    Admin toAdmin(@Param("name") String name);-->
+    <select id="toAdmin" resultType="Admin">
+        select *
+        from t_admin
+        where name = #{name}
+    </select>
+    <!--     void upBal(@Param("vipBal") Integer vipBal,@Param("uid") Integer uid);-->
+    <update id="upBal">
+        update t_user
+        set vip_bal = #{vipBal}
+        where uid = #{uid}
+    </update>
+
+    <!--    List<User> so(@Param("key") String key);-->
+    <select id="so" resultType="User">
+        select
+        <include refid="all"/>
+        from t_user
+        where concat(uname, notes,pwd)
+        like concat('%', #{key}, '%')
+    </select>
+
+    <!--    User userByUid(@Param("uid") Integer uid);-->
+    <select id="userByUid" resultType="User">
+        select
+        <include refid="all"/>
+        from t_user
+        where uid = #{uid}
+    </select>
+    <!--    void upU(User user);-->
+    <update id="upU">
+        update t_user
+        set vip_bal    = #{vipBal},
+            uname=#{uname},
+            type=#{type},
+            vip=#{vip},
+            create_time=#{createTime},
+            notes=#{notes},
+            pwd=#{pwd},
+            statu=#{statu}
+        where uid = #{uid}
+    </update>
+    <!--    void deU(@Param("uid") Integer uid);-->
+    <delete id="deU" >
+        delete
+        from t_user
+        where uid = #{uid}
+    </delete>
+</mapper>

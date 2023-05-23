@@ -1,0 +1,542 @@
+<!--订场页面-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>订场</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/yuding.css}">
+    <script th:src="@{/js/yuding.js}"></script>
+    <style type="text/css">
+        img {
+            width: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!--头部信息-->
+<div id="headMessage" class="clearfix">
+    <ul class="fl">
+        <li>
+             <span th:if="${session.loginUser} == null">
+                        未登录</span>
+            <span th:if="${session.loginUser}!= null">
+                <span th:text="${session.userName}"></span>
+                       </span>
+        </li>
+        <li>
+            <a href="#">预定场地</a>
+        </li>
+    </ul>
+    <ul class="fr">
+        <li>
+            <a href="#">联系客服</a>
+            <span></span>
+        </li>
+        <li>
+            <a href="#">个人中心</a>
+            <span></span>
+        </li>
+    </ul>
+</div>
+
+
+<!--头部搜索-->
+<div id="headInfo">
+    <div class="clearfix layer">
+        <img th:src="@{/jpg/gym.jpg}" alt="图标"><br>
+        <h1 class="fl">北京科技大学— —体育馆订场</h1>
+
+    </div>
+</div>
+
+<!-- 订场部分 -->
+<div class="container">
+    <table>
+        <thead>
+        <tr class="place_type">
+            <th>场地类型</th>
+            <th>可选场地</th>
+            <th>预订日期</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>预定人数</th>
+            <th>价格</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <form th:action="rba" method="post">
+            <tr>
+                <th><img th:src="@{/jpg/篮球.jpg}">篮球全场</th>
+                <td>
+                    <label>
+                        <select name="type">
+                            <div th:each="baAll:${baAlls}">
+                                <option th:text="${baAll.name}">全场1</option>
+                            </div>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <input name="dates"
+                           type="date">
+                </td>
+                <td>
+                    <select name="time" class="start-time" onchange="updateEndTime(this)">
+                        <option>8:00</option>
+                        <option>9:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                    </select>
+                </td>
+                <td>
+                    <input type='text' class='end-time' readonly>
+                </td>
+                <td>
+                    <select name="num">
+                        <option>18</option>
+                        <option>17</option>
+                        <option>16</option>
+                        <option>15</option>
+                        <option>14</option>
+                        <option>13</option>
+                        <option>12</option>
+                        <option>11</option>
+                        <option>10</option>
+                        <option>9</option>
+                        <option>8</option>
+                        <option>7</option>
+                        <option>6</option>
+                        <option>5</option>
+                        <option>4</option>
+                        <option>3</option>
+                        <option>2</option>
+                        <option>1</option>
+                    </select>
+                </td>
+                <td th:if="${session.type} == 2"
+                    th:text="${baAlls.get(0).stu}"></td>
+                <td th:if="${session.type} == 1"
+                    th:text="${baAlls.get(0).th}"></td>
+                <td th:if="${session.type} == 3"
+                    th:text="${baAlls.get(0).tem}"></td>
+                <td>
+                    <button class="button1"
+                            type="submit">预定
+                    </button>
+                </td>
+            </tr>
+        </form>
+        <form th:action="rba" method="post">
+            <tr>
+                <th><img th:src="@{/jpg/篮球.jpg}">篮球半场</th>
+                <td>
+                    <select name="type">
+                        <div th:each="ba:${bas}">
+                            <option th:text="${ba.name}">篮半A</option>
+                        </div>
+                    </select>
+                </td>
+                <td>
+                    <input name="dates"
+                           type="date">
+                </td>
+                <td>
+                    <select class="start-time" name="time"
+                            onchange="updateEndTime(this)">
+                        <option>8:00</option>
+                        <option>9:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                    </select>
+                </td>
+                <td><input type='text' class='end-time' readonly></td>
+                <td>
+                    <select name="num">
+                        <option>9</option>
+                        <option>8</option>
+                        <option>7</option>
+                        <option>6</option>
+                        <option>5</option>
+                        <option>4</option>
+                        <option>3</option>
+                        <option>2</option>
+                        <option>1</option>
+                    </select>
+                </td>
+                <td th:if="${session.type} == 2"
+                    th:text="${bas.get(0).stu}"></td>
+                <td th:if="${session.type} == 1"
+                    th:text="${bas.get(0).th}"></td>
+                <td th:if="${session.type} == 3"
+                    th:text="${bas.get(0).tem}"></td>
+                <td>
+                    <button class="button1"
+                            type="submit">预定
+                    </button>
+                </td>
+            </tr>
+        </form>
+        <form th:action="rba" method="post">
+            <tr>
+                <th><img th:src="@{/jpg/羽毛球.jpg}">羽毛球</th>
+                <td>
+                    <select name="type">
+                        <div th:each="bmn:${bmns}">
+                            <option th:text="${bmn.name}">羽1</option>
+                        </div>
+                    </select>
+                </td>
+                <td>
+                    <input name="dates"
+                           type="date">
+                </td>
+                <td>
+                    <select class="start-time" name="time"
+                            onchange="updateEndTime(this)">
+                        <option>8:00</option>
+                        <option>9:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                    </select>
+                </td>
+                <td><input type='text' class='end-time' readonly></td>
+                <td>
+                    <select name="num">
+                        <option>4</option>
+                        <option>3</option>
+                        <option>2</option>
+                        <option>1</option>
+                    </select>
+                </td>
+                <td th:if="${session.type} == 2"
+                    th:text="${bmns.get(0).stu}"></td>
+                <td th:if="${session.type} == 1"
+                    th:text="${bmns.get(0).th}"></td>
+                <td th:if="${session.type} == 3"
+                    th:text="${bmns.get(0).tem}"></td>
+                <td>
+                    <button class="button1"
+                            type="submit">预定
+                    </button>
+                </td>
+            </tr>
+        </form>
+        <form th:action="rba" method="post">
+            <tr>
+                <th><img th:src="@{/jpg/乒乓球.jpg}">乒乓球</th>
+                <td>
+                    <select name="type">
+                        <div th:each="pp:${pps}">
+                            <option th:text="${pp.name}">乒1</option>
+                        </div>
+                    </select>
+                </td>
+                <td>
+                    <input name="dates"
+                           type="date">
+                </td>
+                <td>
+                    <select class="start-time" name="time"
+                            onchange="updateEndTime(this)">
+                        <option>8:00</option>
+                        <option>9:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                    </select>
+                </td>
+                <td><input type='text' class='end-time' readonly></td>
+                <td>
+                    <select name="num">
+                        <option>4</option>
+                        <option>3</option>
+                        <option>2</option>
+                        <option>1</option>
+                    </select>
+                </td>
+                <td th:if="${session.type} == 2"
+                    th:text="${pps.get(0).stu}"></td>
+                <td th:if="${session.type} == 1"
+                    th:text="${pps.get(0).th}"></td>
+                <td th:if="${session.type} == 3"
+                    th:text="${pps.get(0).tem}"></td>
+                <td>
+                    <button class="button1"
+                            type="submit">预定</button>
+                </td>
+            </tr>
+        </form>
+        <form th:action="rba" method="post">
+            <tr>
+                <th><img th:src="@{/jpg/网球.jpg}">网球</th>
+                <td><select name="type">
+                    <div th:each="ten:${tens}">
+                        <option th:text="${ten.name}">乒1</option>
+                    </div>
+                </select></td>
+                <td>
+                    <input name="dates"
+                           type="date">
+                </td>
+                <td>
+                    <select class="start-time" name="time"
+                            onchange="updateEndTime(this)">
+                        <option>8:00</option>
+                        <option>9:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                    </select>
+                </td>
+                <td><input type='text' class='end-time' readonly></td>
+                <td>
+                    <select name="num">
+                        <option>10</option>
+                        <option>9</option>
+                        <option>8</option>
+                        <option>7</option>
+                        <option>6</option>
+                        <option>5</option>
+                        <option>4</option>
+                        <option>3</option>
+                        <option>2</option>
+                        <option>1</option>
+                    </select>
+                </td>
+                <td th:if="${session.type} == 2"
+                    th:text="${tens.get(0).stu}"></td>
+                <td th:if="${session.type} == 1"
+                    th:text="${tens.get(0).th}"></td>
+                <td th:if="${session.type} == 3"
+                    th:text="${tens.get(0).tem}"></td>
+                <td>
+                    <button class="button1"
+                            type="submit">预定
+                    </button>
+                </td>
+            </tr>
+        </form>
+        <form th:action="rba" method="post">
+            <tr>
+                <th><img th:src="@{/jpg/乒乓球.jpg}">跑廊乒乓球</th>
+                <td>
+                    <select name="type">
+                        <div th:each="ppq:${ppqs}">
+                            <option th:text="${ppq.name}">1</option>
+                        </div>
+                    </select>
+                </td>
+                <td>
+                    <input name="dates"
+                           type="date">
+                </td>
+                <td>
+                    <select class="start-time" name="time"
+                            onchange="updateEndTime(this)">
+                        <option>8:00</option>
+                        <option>9:00</option>
+                        <option>10:00</option>
+                        <option>11:00</option>
+                        <option>12:00</option>
+                        <option>13:00</option>
+                        <option>14:00</option>
+                        <option>15:00</option>
+                        <option>16:00</option>
+                        <option>17:00</option>
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                    </select></td>
+                <td><input type='text' class='end-time' readonly></td>
+                <td>
+                    <select name="num">
+                        <option>4</option>
+                        <option>3</option>
+                        <option>2</option>
+                        <option>1</option>
+                    </select>
+                </td>
+                <td th:if="${session.type} == 2"
+                    th:text="${ppqs.get(0).stu}"></td>
+                <td th:if="${session.type} == 1"
+                    th:text="${ppqs.get(0).th}"></td>
+                <td th:if="${session.type} == 3"
+                    th:text="${ppqs.get(0).tem}"></td>
+                <td>
+                    <button class="button1">预定</button>
+                </td>
+            </tr>
+        </form>
+        <form th:action="rba" method="post">
+            <tr>
+                <th><img th:src="@{/jpg/篮球.jpg}">晚间篮球全场</th>
+                <td>
+                    <select name="type">
+                        <div th:each="baAll:${baAlls}">
+                            <option th:text="${baAll.name}">全场1</option>
+                        </div>
+                    </select>
+                </td>
+                <td>
+                    <input name="dates"
+                           type="date">
+                </td>
+                <td>
+                    <select class="start-time" name="time"
+                            onchange="updateEndTime(this)">
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                    </select>
+                </td>
+                <td>
+                    <input type='text' class='end-time' readonly>
+                </td>
+                <td>
+                    <select name="num">
+                        <option>18</option>
+                        <option>17</option>
+                        <option>16</option>
+                        <option>15</option>
+                        <option>14</option>
+                        <option>13</option>
+                        <option>12</option>
+                        <option>11</option>
+                        <option>10</option>
+                        <option>9</option>
+                        <option>8</option>
+                        <option>7</option>
+                        <option>6</option>
+                        <option>5</option>
+                        <option>4</option>
+                        <option>3</option>
+                        <option>2</option>
+                        <option>1</option>
+                    </select>
+                </td>
+                <td th:if="${session.type} == 2"
+                    th:text="${wbaAlls.get(0).stu}"></td>
+                <td th:if="${session.type} == 1"
+                    th:text="${wbaAlls.get(0).th}"></td>
+                <td th:if="${session.type} == 3"
+                    th:text="${wbaAlls.get(0).tem}"></td>
+                <td>
+                    <button class="button1"
+                            type="submit">预定
+                    </button>
+                </td>
+            </tr>
+        </form>
+        <form th:action="rba" method="post">
+            <tr>
+                <th><img th:src="@{/jpg/篮球.jpg}">晚间篮球半场</th>
+                <td>
+                    <select name="type">
+                        <div th:each="ba:${bas}">
+                            <option th:text="${ba.name}">篮半A</option>
+                        </div>
+                    </select>
+                </td>
+                <td>
+                    <input name="dates"
+                           type="date">
+                </td>
+                <td>
+                    <select class="start-time" name="time"
+                            onchange="updateEndTime(this)">
+                        <option>18:00</option>
+                        <option>19:00</option>
+                        <option>20:00</option>
+                        <option>21:00</option>
+                    </select>
+                </td>
+                <td><input type='text' class='end-time' readonly></td>
+                <td>
+                    <select name="num">
+                        <option>9</option>
+                        <option>8</option>
+                        <option>7</option>
+                        <option>6</option>
+                        <option>5</option>
+                        <option>4</option>
+                        <option>3</option>
+                        <option>2</option>
+                        <option>1</option>
+                    </select>
+                </td>
+                <td th:if="${session.type} == 2"
+                    th:text="${wba.get(0).stu}"></td>
+                <td th:if="${session.type} == 1"
+                    th:text="${wba.get(0).th}"></td>
+                <td th:if="${session.type} == 3"
+                    th:text="${wba.get(0).tem}"></td>
+                <td>
+                    <button class="button1"
+                            type="submit">预定</button>
+                </td>
+            </tr>
+        </form>
+        </tbody>
+    </table>
+</div>
+
+<!--尾部分割-->
+<div class="space" onclick="return false;">
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+</div>
+<!--尾部-->
+<footer>
+    <ul class="list" onclick="return false;">
+        <li class="fl"><a href="#">关于</a></li>
+        <li class="fl"><a href="#">团队</a></li>
+        <li class="fl"><a href="#">联系</a></li>
+    </ul>
+</footer>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" th:href="@{css/amazeui.min.css}" />
+		<link rel="stylesheet" th:href="@{css/admin.css}" />
+	</head>
+	<body>
+		<div class="admin-content-body">
+			<div class="am-cf am-padding am-padding-bottom-0">
+				<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">充值管理</strong><small></small></div>
+			</div>
+
+			<hr>
+
+			<div class="am-g">
+				<div class="am-u-sm-12 am-u-md-6">
+					<div class="am-btn-toolbar">
+						<div class="am-btn-group am-btn-group-xs">
+							<a th:href="@{/addTrade}"><button type="button"
+									class="am-btn am-btn-default">
+								<span class="am-icon-plus"></span> 新增</button></a>
+						</div>
+					</div>
+				</div>
+				<div class="am-u-sm-12 am-u-md-3">
+
+				</div>
+				<form th:action="@{/so(logo=d)}" method="post">
+				<div class="am-u-sm-12 am-u-md-3">
+					<div class="am-input-group am-input-group-sm">
+						<input type="text" name="key"
+							   class="am-form-field">
+						<span class="am-input-group-btn">
+            <button class="am-btn am-btn-default"
+					type="submit">搜索</button>
+          </span>
+					</div>
+				</div>
+				</form>
+			</div>
+			<div class="am-g">
+				<div class="am-u-sm-12">
+					<form class="am-form">
+						<table class="am-table am-table-striped am-table-hover table-main">
+							<thead>
+								<tr>
+									<th class="table-check"><input type="checkbox"></th>
+									<th class="table-id">ID</th>
+									<th class="table-uid">用户ID</th>
+									<th class="table-money">充值金额</th>
+									<th class="table-time">充值时间</th>
+									<th class="table-notes">备注</th>
+									<th class="table-action">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="trade:${trades}">
+									<td><input type="checkbox"></td>
+									<td th:text="${trade.tid}">1</td>
+									<td th:text="${trade.uid}"></td>
+									<td th:text="${trade.money}"></td>
+									<td th:text="${#dates.format
+									(trade.time,'yyyy-MM-dd HH:mm')}"></td>
+									<td th:text="${trade.notes}"></td>
+									<td>
+										<div class="am-btn-toolbar">
+											<div class="am-btn-group am-btn-group-xs">
+												<a th:href="@{/upTrade}"><button type="button"
+														class="btnedit am-btn am-btn-default am-btn-xs am-text-secondary">
+													<span class="am-icon-pencil-square-o"></span> 编辑</button></a>
+												<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="am-cf">
+							共 <span th:text="${size}"></span>条记录
+							<div class="am-fr">
+								<ul class="am-pagination">
+									<li class="am-disabled">
+										<a href="#">«</a>
+									</li>
+									<li class="am-active">
+										<a th:href="@{/trade(pageNum=1)}">首页</a>
+									</li>
+									<li>
+										<a th:href="@{/trade(pageSize=${pageInfo.getPageNum()-1})}">上一页</a>
+									</li>
+									<li th:if="${pageInfo.hasNextPage}">
+										<a th:href="@{/trade(pageNum=${pageInfo.getPageNum()+1})}">下一页</a>
+									</li>
+									<li>
+										<a th:href="@{/trade(pageNum=${pageInfo.getPages()})}">尾页</a>
+									</li>
+									<li><a href="#">»</a></li>
+								</ul>
+							</div>
+						</div>
+						<hr>
+					</form>
+				</div>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+
+	</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/amazeui.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" />
+</head>
+<body>
+<div class="admin-content-body">
+    <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">修改场地信息</strong><small></small></div>
+    </div>
+
+    <hr>
+
+    <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-6">
+
+        </div>
+        <div class="am-u-sm-12 am-u-md-3">
+
+        </div>
+        <div class="am-u-sm-12 am-u-md-3">
+
+        </div>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <form class="am-form" method="post" th:action="@{/upPl(pid=${place.pid})}">
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>场地类型:</td>
+                        <td>
+                            <input type="text" name="type"
+                                   th:value="${place.type}"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                        <td>场地名称:</td>
+                        <td>
+                            <input type="text" name="name"
+                                   th:value="${place.name}"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>可容纳人数:</td>
+                        <td>
+                            <input type="text" name="num"
+                                   th:value="${place.number}"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                        <td>学生价格：</td>
+                        <td>
+                            <input type="text" name="stu"
+                                   th:value="${place.stu}"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>教师价格：</td>
+                        <td>
+                            <input type="text" name="th"
+                                   th:value="${place.th}"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                        <td>临时价格：</td>
+                        <td>
+                            <input type="text" name="tem"
+                                   th:value="${place.tem}"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>场地状态：</td>
+                        <td>
+                            <select name="statu"
+                                    style="border-radius: 12px;
+										height: 30px;font-size: 10px">
+                                <option value="">---请选择---</option>
+                                <option>可使用</option>
+                                <option>不可使用</option>
+                            </select></td>
+                        <td>备注：</td>
+                        <td>
+                            <input type="text" name="note"
+                                   th:value="${place.notes}"
+                                   style="border-radius: 12px;
+										height: 30px;"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="am-btn am-btn-default"
+                        id="add_place"
+                        style="position: relative;left: 48%;
+								color:#0e90d2;border-color:#0e90d2;border-radius: 15px "
+                ><span class="am-icon-plus"></span>修改</button>
+                <hr>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="myplugs/js/plugs.js"></script>
+
+</body>
+
+</html>
